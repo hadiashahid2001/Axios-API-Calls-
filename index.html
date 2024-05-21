@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios Crash Course</title>
+    <link rel="stylesheet" href="cssFile/bootstrap.css">
+    <link rel="stylesheet" href="cssFile/myStyle.css">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="text-center">
+            <h1 class="display-4 text-center mb-3">Axios Crash Course</h1>
+            <button class="btn btn-primary my-3" id="get" data-target="res">GET</button>
+            <button class="btn btn-info my-3" id="post" data-target="res1">POST</button>
+            <button class="btn btn-warning my-3" id="update" data-target="res2">PUT/PATCH</button>
+            <button class="btn btn-danger my-3" id="delete" data-target="res3">DELETE</button>
+            <button class="btn btn-secondary my-3" id="sim" data-target="res4">Sim Requests</button>
+            <button class="btn btn-secondary my-3" id="headers" data-target="res5">Custom Headers</button>
+            <button class="btn btn-secondary my-3" id="transform" data-target="res6">Transform</button>
+            <button class="btn btn-secondary my-3" id="error" data-target="res7">Error Handling</button>
+            <button class="btn btn-secondary my-3" id="cancel" data-target="res8">Cancel</button>
+        </div>
+        <hr />
+        <div class="container p-3 mycontainer">
+            <div class="row text-center ">
+                <div class="col-lg-12">
+                    <h1>Axios</h1>
+                    <p>Axios is a popular JavaScript library used to make HTTP requests from the browser and Node.js.
+                     It simplifies the process of making requests, handling responses, and working with promises.</p>
+                     <h4>Key Features</h4>
+                    <ul class="flex-start">
+                        <li>Makes it easy to work with asynchronous operations.</li>
+                        <li>Allows for writing cleaner and more readable asynchronous code.</li>
+                        <li>Allows you to intercept requests or responses before they are handled.</li>
+                        <li>Transforms the data automatically for requests and responses.</li>
+                        <li>Modify the data before it is sent or after it is received.</li>
+                        <li>Allows you to cancel ongoing requests.</li>
+                        <li>Helps in managing CSRF tokens automatically.</li>
+                    </ul>
+                    <pre>To use it either import it by installing using npm or add its CDN link in script.</pre>
+                </div>
+                <div class="col-lg-12">
+                    <h2>Axios Methods</h2>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Get</h3>
+                    <p>Used to retrieve data from the server.</p>
+                    <pre>
+                        axios.get("url")
+                        .then(res => console.log(res))
+                        .catch( err => console.error(err));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res">
+                    
+                    </div>
+                </div>
+                <hr>
+                <div class="col-lg-12">
+                    <h3>Post</h3>
+                    <p>Used to send data to the server.</p>
+                    <pre>
+                        axios.post("url" , { title : "New Data" , completed : false; })
+                        .then(res => console.log(res))
+                        .catch( err => console.error(err));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res1">
+                    
+                    </div>
+                </div>
+                <hr>
+                <div class="col-lg-12">
+                    <h3>Put/Patch</h3>
+                    <p>'Put' used to update existing data on the server.</p>
+                    <pre>
+                        axios.put("url" , { title : "New Data" , completed : false; })
+                        .then(res => console.log(res))
+                        .catch( err => console.error(err));</pre>
+                    <p>'Patch' used to update partial data on the server.</p>
+                    <pre>    
+                        axios.patch("url" , { title : "New Data" , completed : false; })
+                        .then(res => console.log(res))
+                        .catch( err => console.error(err));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res2">
+                    
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Delete</h3>
+                    <p>Used to delete data from the server.</p>
+                    <pre>
+                        axios.delete("url")
+                        .then(res => console.log(res))
+                        .catch( err => console.error(err));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res3">
+                    
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Simultaneous Request</h3>
+                    <p>Axios allows you to make multiple requests at 
+                        the same time using axios.all and axios.spread. 
+                        This is useful for performing parallel operations 
+                        and handling their responses together.</p>
+                    <pre>
+                        axios.all([
+                        axios.get('url'),
+                        axios.get('url')
+                        ])
+                        .then(axios.spread((todos, posts) => {
+                        console.log('Todos:', todos.data);
+                        console.log('Posts:', posts.data);
+                        }))
+                        .catch(error => console.error(error));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res4">
+                    
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Custome Headers</h3>
+                    <p>Used to add custom Headers to requests.</p>
+                    <pre>
+                        axios.get("url", headers: {
+                            'Custom-Header': 'CustomHeaderValue'
+                        })
+                        .then(res => console.log(res))
+                        .catch( err => console.error(err));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res5">
+                    
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Transform Request and Response</h3>
+                    <p>transform the data before it is sent to the 
+                        server or after it is received from the server. This is 
+                        useful for modifying the request or response data.</p>
+                    <pre>
+                        axios({
+                            method: 'post',
+                            url: 'url',
+                            data: {
+                              title: 'New Todo',
+                              completed: false
+                            },
+                            transformResponse: [function (data) {
+                              // Transform the response data
+                              let transformedData = JSON.parse(data);
+                              transformedData.title = transformedData.title.toUpperCase();
+                              return transformedData;
+                            }]
+                          })
+                          .then(response => console.log(response.data))
+                          .catch(error => console.error(error));
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res6">
+                    
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Error Handling</h3>
+                    <p>Used to handle different types of error during request and response process.</p>
+                    <pre>
+                        axios.get("url")
+                        .then(res => console.log(res))
+                        .catch( err => {
+                            if(err.response){
+                                //Server responded with a status other than 200 range
+                                console.log(err.response.data);
+                                console.log(err.response.status);
+                                console.log(err.response.headers);
+                    
+                            if(err.response.status === 404){
+                                alert("Error : Page not Found")
+                            }
+                            } else if (err.request) {
+                                // Request was made but no response
+                                console.log(err.request);
+                            } else {
+                                console.error(err.message);
+                            }
+                        });
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res7">
+                    
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3>Cancel Token</h3>
+                    <p>Axios allows to cancel requests using the CancelToken.</p>
+                    <pre>
+                        const source = axios.cancelToken.source();
+
+                        axios.get("url", {
+                            cancelToken : source.token
+                        })
+                        .then( res => console.log(res))
+                        .catch( thrown => {
+                            if(axios.isCancel(thrown)){
+                                console.log("Request Canceled", thrown.message);
+                            }
+                        });
+                    </pre>
+                    <h4>Response</h4>
+                    <div id="res8">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
